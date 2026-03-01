@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pink Coded — Сообщество девушек в IT из Казахстана и СНГ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="banner">
+  ✨ Новая платформа запущена! Присоединяйся к сообществу девушек в IT
+  <button type="button" onclick="document.getElementById('banner').remove()" title="Закрыть">×</button>
+</div>
+
+<header>
+  <a href="#" class="logo">Pink <span>Coded</span></a>
+  <nav>
+    <div class="nav-item">
+      <button class="nav-btn" id="navDirections" type="button" onclick="toggleDropdown('dd1',this)">Направления <span class="arrow">▾</span></button>
+      <div class="dropdown" id="dd1">
+        <a href="#" onclick="showSection('projects');return false;">🚀 Проекты девушек</a>
+        <a href="#" onclick="showSection('partners');return false;">🤝 Партнёры и менторы</a>
+        <a href="#" onclick="showSection('members');return false;">👩‍💻 Участницы и менторши</a>
+        <a href="#" onclick="showSection('sponsors');return false;">💎 Спонсоры программ</a>
+        <a href="#" onclick="showSection('research');return false;">🔬 Исследовательницы CS/Math</a>
+        <a href="#" onclick="showSection('regional');return false;">📍 Участницы из регионов</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-btn" id="navTechpark" type="button" onclick="toggleDropdown('dd2',this)">Технопарк <span class="arrow">▾</span></button>
+      <div class="dropdown" id="dd2">
+        <a href="#" onclick="scrollToSection('#community');return false;">🏘️ Инфраструктура сообщества</a>
+        <a href="#" onclick="scrollToSection('#bridge');return false;">🗺️ Региональные группы</a>
+        <a href="#" onclick="openModal('modalJoin');return false;">🛡️ Поддержка участниц</a>
+        <a href="#" onclick="scrollToSection('#programs');return false;">🌐 Международные возможности</a>
+        <a href="#" onclick="scrollToSection('#community');return false;">📋 Список участниц</a>
+        <a href="#" onclick="scrollToSection('#programs');return false;">🛠️ Ресурсы для кодинга</a>
+        <a href="#" onclick="openModal('modalJoin');return false;">✨ Стать участницей</a>
+      </div>
+    </div>
+    <button class="nav-btn" id="navPrograms" type="button" onclick="scrollToSection('#programs')">Программы</button>
+    <button class="nav-btn" id="navPractice" type="button" onclick="scrollToSection('#practiceLab')">Practice Lab</button>
+    <button class="nav-btn" id="navHackathons" type="button" onclick="scrollToSection('#hackathons')">Хакатоны</button>
+    <button class="nav-btn" id="navNews" type="button" onclick="scrollToSection('#news')">Новости</button>
+    <button class="nav-btn" id="navEvents" type="button" onclick="scrollToSection('#events')">События</button>
+    <button class="nav-btn" id="navCommunity" type="button" onclick="scrollToSection('#community')">Комьюнити</button>
+    <button class="nav-btn" id="navLive" type="button" onclick="scrollToSection('#liveCampus')">Live Campus</button>
+    <button class="nav-btn" id="navGrants" type="button" onclick="scrollToSection('#opportunities')">Возможности</button>
+  </nav>
+  <div class="header-right">
+    <select class="lang-select" onchange="changeLang(this.value)">
+      <option value="ru">🇷🇺 Рус</option>
+      <option value="kk">🇰🇿 Қаз</option>
+      <option value="en">🇬🇧 Eng</option>
+    </select>
+    <button class="btn-join" type="button" onclick="openModal('modalJoin')">Присоединиться ✨</button>
+  </div>
+  <button class="hamburger" type="button" onclick="toggleMobileMenu()" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a id="mobileRoles" href="#" onclick="scrollToSection('#roles');closeMobileMenu();return false;">🎯 Выбрать роль</a>
+  <a id="mobilePrograms" href="#" onclick="scrollToSection('#programs');closeMobileMenu();return false;">📚 Программы</a>
+  <a id="mobilePractice" href="#" onclick="scrollToSection('#practiceLab');closeMobileMenu();return false;">💻 Practice Lab</a>
+  <a id="mobileHackathons" href="#" onclick="scrollToSection('#hackathons');closeMobileMenu();return false;">🏁 Хакатоны</a>
+  <a id="mobileNews" href="#" onclick="scrollToSection('#news');closeMobileMenu();return false;">📰 Новости</a>
+  <a id="mobileEvents" href="#" onclick="scrollToSection('#events');closeMobileMenu();return false;">📅 События</a>
+  <a id="mobileCommunity" href="#" onclick="scrollToSection('#community');closeMobileMenu();return false;">💬 Комьюнити</a>
+  <a id="mobileBridge" href="#" onclick="scrollToSection('#bridge');closeMobileMenu();return false;">🌉 Digital Bridge</a>
+  <a id="mobileLive" href="#" onclick="scrollToSection('#liveCampus');closeMobileMenu();return false;">🎥 Live Campus</a>
+  <a id="mobileGrants" href="#" onclick="scrollToSection('#opportunities');closeMobileMenu();return false;">💸 Возможности</a>
+  <a id="mobileJoin" href="#" onclick="openModal('modalJoin');closeMobileMenu();return false;" style="color:var(--pink);margin-top:16px;">✨ Присоединиться</a>
+</div>
+
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge" id="heroBadge">🌸 Сообщество для девушек в IT · Казахстан и СНГ</div>
+    <h1 id="heroTitle">Превращай идеи<br>в код и проекты</h1>
+    <p id="heroSubtitle">Кодинг, английский, олимпиады, хакатоны и поступление за рубеж — всё это с поддержкой сестёр из твоего региона</p>
+    <div class="hero-btns">
+      <button class="btn-primary" id="heroPrimaryBtn" type="button" onclick="scrollToSection('#roles')">Начать сейчас 🚀</button>
+      <button class="btn-secondary" id="heroSecondaryBtn" type="button" onclick="scrollToSection('#programs')">Посмотреть программы</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="num">6 000+</div><div class="lbl">девушек в сообществе</div></div>
+      <div class="hero-stat"><div class="num">10+</div><div class="lbl">программ и курсов</div></div>
+      <div class="hero-stat"><div class="num">10+</div><div class="lbl">стран ЦА и СНГ</div></div>
+      <div class="hero-stat"><div class="num">42</div><div class="lbl">поступили за рубеж</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="roles">
+  <div class="container">
+    <span class="section-tag" id="rolesTag">🎯 Твой путь</span>
+    <h2 class="section-title" id="rolesTitle">Кто ты в Pink Coded?</h2>
+    <p class="section-sub" id="rolesSubtitle">Присоединяйся к сообществу, где девушки превращают идеи в код и проекты — выбери свою роль</p>
+    <div class="cards-grid cards-4">
+      <div class="role-card r1" onclick="openRoleModal('idea')">
+        <span class="role-emoji">💡</span>
+        <h3>Девушка с идеей проекта</h3>
+        <p>Хочешь запустить IT-проект, но не знаешь с чего начать? Мы поможем</p>
+        <button class="btn-primary" type="button" style="font-size:13px;padding:10px 20px;" onclick="event.stopPropagation();openRoleModal('idea')">Выбрать →</button>
+      </div>
+      <div class="role-card r2" onclick="openRoleModal('mentor')">
+        <span class="role-emoji">🤝</span>
+        <h3>Партнёр или ментор</h3>
+        <p>Компания с программой интернатуры или эксперт, готовый менторить девушек</p>
+        <button class="btn-secondary" type="button" style="font-size:13px;padding:8px 18px;" onclick="event.stopPropagation();openRoleModal('mentor')">Выбрать →</button>
+      </div>
+      <div class="role-card r3" onclick="openRoleModal('researcher')">
+        <span class="role-emoji">🔬</span>
+        <h3>Исследовательница</h3>
+        <p>CS, математика, олимпиады — для тех, кто хочет науку и международные соревнования</p>
+        <button class="btn-secondary" type="button" style="font-size:13px;padding:8px 18px;" onclick="event.stopPropagation();openRoleModal('researcher')">Выбрать →</button>
+      </div>
+      <div class="role-card r4" onclick="openRoleModal('coder')">
+        <span class="role-emoji">💻</span>
+        <h3>IT-девушка</h3>
+        <p>Уже кодишь и хочешь сообщество, проекты и возможности за рубежом</p>
+        <button class="btn-secondary" type="button" style="font-size:13px;padding:8px 18px;" onclick="event.stopPropagation();openRoleModal('coder')">Выбрать →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="container">
+    <span class="section-tag" style="background:rgba(255,255,255,0.1);color:var(--pink-soft);">📊 Цифры</span>
+    <h2 class="section-title" style="color:white;">Наши достижения</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7);">Вместе мы строим IT-будущее для девушек ЦА</p>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="num"><span>6 000</span>+</div><div class="lbl">девушек охвачены программами</div></div>
+      <div class="stat-box"><div class="num"><span>10</span>+</div><div class="lbl">буткемпов, клубов и марафонов</div></div>
+      <div class="stat-box"><div class="num"><span>10</span>+</div><div class="lbl">стран Центральной Азии и СНГ</div></div>
+      <div class="stat-box"><div class="num"><span>87</span>%</div><div class="lbl">участниц нашли ментора или работу</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="programs">
+  <div class="container">
+    <span class="section-tag" id="programsTag">📚 Обучение</span>
+    <h2 class="section-title" id="programsTitle">Популярные программы</h2>
+    <p class="section-sub" id="programsSubtitle">Развиваем навыки кодинга и английского в Центральной Азии, соединяя девушек с возможностями в проектах, олимпиадах и хакатонах</p>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="tabBtnAll" type="button" onclick="switchTab('all')">Все программы</button>
+      <button class="tab-btn" id="tabBtnCoding" type="button" onclick="switchTab('coding')">💻 Кодинг</button>
+      <button class="tab-btn" id="tabBtnEnglish" type="button" onclick="switchTab('english')">🇬🇧 Английский</button>
+      <button class="tab-btn" id="tabBtnOlympiad" type="button" onclick="switchTab('olympiad')">🏆 Олимпиады</button>
+    </div>
+
+    <div class="tab-content active" id="tab-all">
+      <div class="cards-grid cards-3">
+        <div class="prog-card" onclick="openProgramModal('bootcamp')">
+          <div class="prog-header">
+            <span class="card-tag tag-pink">🚀 Буткемп</span>
+            <h3>Pink Hero Bootcamp</h3>
+          </div>
+          <div class="prog-body">
+            <p>Интенсивная программа ускорения проектов: кодинг, английский, питч инвесторам. 8 недель онлайн + оффлайн.</p>
+            <div class="course-progress" id="prog1-progress"></div>
+          </div>
+          <div class="prog-footer">
+            <span class="status-dot">Идёт приём заявок</span>
+            <button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('bootcamp')">Подать заявку</button>
+          </div>
+        </div>
+        <div class="prog-card" onclick="openProgramModal('ai')">
+          <div class="prog-header">
+            <span class="card-tag tag-lav">🤖 Курс</span>
+            <h3>Основы Кодинга и AI</h3>
+          </div>
+          <div class="prog-body">
+            <p>Бесплатный курс для начинающих: 45 видеоуроков по Python, AI/ML и созданию первого проекта. Сертификат по завершении.</p>
+            <div class="course-progress" id="prog2-progress"></div>
+          </div>
+          <div class="prog-footer">
+            <span class="status-dot">Идёт приём заявок</span>
+            <button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('ai')">Начать учиться</button>
+          </div>
+        </div>
+        <div class="prog-card" onclick="openProgramModal('marathon')">
+          <div class="prog-header">
+            <span class="card-tag tag-gold">🏃 Марафон</span>
+            <h3>Pink Coders Marathon</h3>
+          </div>
+          <div class="prog-body">
+            <p>30-дневный марафон по IT-навыкам и английскому для олимпиадниц. Ежедневные задания, менторы, призы.</p>
+            <div class="course-progress" id="prog3-progress"></div>
+          </div>
+          <div class="prog-footer">
+            <span class="status-dot">Идёт приём заявок</span>
+            <button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('marathon')">Участвовать</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-content" id="tab-coding">
+      <div class="cards-grid cards-3">
+        <div class="prog-card" onclick="openProgramModal('ai')">
+          <div class="prog-header"><span class="card-tag tag-lav">🤖 Курс</span><h3>Основы Кодинга и AI</h3></div>
+          <div class="prog-body"><p>Python, AI/ML — бесплатный курс с 45 видеоуроками и сертификатом.</p></div>
+          <div class="prog-footer"><span class="status-dot">Открыт</span><button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('ai')">Начать</button></div>
+        </div>
+        <div class="prog-card" onclick="openProgramModal('web')">
+          <div class="prog-header"><span class="card-tag tag-pink">🌐 Курс</span><h3>Web Development</h3></div>
+          <div class="prog-body"><p>HTML, CSS, JavaScript — создай своё первое веб-приложение с нуля за 6 недель.</p></div>
+          <div class="prog-footer"><span class="status-dot">Открыт</span><button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('web')">Начать</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-english">
+      <div class="cards-grid cards-3">
+        <div class="prog-card" onclick="openProgramModal('ielts')">
+          <div class="prog-header"><span class="card-tag tag-green">🇬🇧 Подготовка</span><h3>IELTS для STEM-девушек</h3></div>
+          <div class="prog-body"><p>Подготовка к IELTS с акцентом на академический английский для поступления в технические университеты.</p></div>
+          <div class="prog-footer"><span class="status-dot">Открыт</span><button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('ielts')">Подать заявку</button></div>
+        </div>
+        <div class="prog-card" onclick="openProgramModal('marathon')">
+          <div class="prog-header"><span class="card-tag tag-gold">🏃 Марафон</span><h3>Pink Coders Marathon</h3></div>
+          <div class="prog-body"><p>Английский для олимпиадниц — ежедневные задания, менторы, призы.</p></div>
+          <div class="prog-footer"><span class="status-dot">Открыт</span><button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('marathon')">Участвовать</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-olympiad">
+      <div class="cards-grid cards-3">
+        <div class="prog-card" onclick="openProgramModal('olympiad')">
+          <div class="prog-header"><span class="card-tag tag-gold">🏆 Олимпиада</span><h3>Олимпиадный трек CS/Math</h3></div>
+          <div class="prog-body"><p>Подготовка к международным олимпиадам по информатике и математике. Менторы — победительницы прошлых лет.</p></div>
+          <div class="prog-footer"><span class="status-dot">Открыт</span><button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('olympiad')">Участвовать</button></div>
+        </div>
+        <div class="prog-card" onclick="openProgramModal('hackathon')">
+          <div class="prog-header"><span class="card-tag tag-pink">⚡ Хакатон</span><h3>Pink Hackathon Series</h3></div>
+          <div class="prog-body"><p>Серия хакатонов только для девушек: призовой фонд, менторы от топ-компаний, реальные проекты.</p></div>
+          <div class="prog-footer"><span class="status-dot">Скоро</span><button class="btn-primary" type="button" style="font-size:12px;padding:8px 16px;" onclick="event.stopPropagation();openProgramModal('hackathon')">Подать заявку</button></div>
+        </div>
+      </div>
+    </div>
+
+    <a href="#" id="seeAllPrograms" class="see-all" onclick="switchTab('all');event.preventDefault()">Все программы →</a>
+  </div>
+</section>
+
+<section id="practiceLab">
+  <div class="container">
+    <span class="section-tag lav" id="practiceTag">💻 Practice Lab</span>
+    <h2 class="section-title" id="practiceTitle">Задачи по кодингу прямо на сайте</h2>
+    <p class="section-sub" id="practiceSubtitle">Выбирай задачу, пиши решение в редакторе, запускай код и сразу смотри результат. Сейчас доступен браузерный мини-компилятор для JavaScript.</p>
+
+    <div class="practice-grid">
+      <aside class="practice-sidebar">
+        <button class="practice-task-btn active" type="button" data-task="sum" onclick="selectPracticeTask('sum')">
+          <span class="practice-task-num">1</span>
+          <span>Сумма двух чисел</span>
+        </button>
+        <button class="practice-task-btn" type="button" data-task="max3" onclick="selectPracticeTask('max3')">
+          <span class="practice-task-num">2</span>
+          <span>Максимум из трёх</span>
+        </button>
+        <button class="practice-task-btn" type="button" data-task="even" onclick="selectPracticeTask('even')">
+          <span class="practice-task-num">3</span>
+          <span>Проверка на чётность</span>
+        </button>
+      </aside>
+
+      <div class="practice-panel">
+        <div class="practice-problem-card">
+          <div class="practice-problem-top">
+            <span class="card-tag tag-pink" id="practiceDifficulty">🟢 Лёгкая</span>
+            <span class="practice-lang">JavaScript</span>
+          </div>
+          <h3 id="practiceProblemTitle">Сумма двух чисел</h3>
+          <p id="practiceProblemText">Считай из ввода два числа и выведи их сумму.</p>
+          <div class="practice-examples">
+            <div>
+              <h4>Ввод</h4>
+              <pre id="practiceExampleInput">2 5</pre>
+            </div>
+            <div>
+              <h4>Вывод</h4>
+              <pre id="practiceExampleOutput">7</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="practice-editor-card">
+          <div class="practice-editor-head">
+            <h3>Редактор</h3>
+            <button class="mini-link" type="button" onclick="resetPracticeCode()">Сбросить шаблон</button>
+          </div>
+          <textarea id="practiceCode" spellcheck="false"></textarea>
+
+          <div class="practice-io-grid">
+            <div class="practice-io-box">
+              <label for="practiceInput">Input</label>
+              <textarea id="practiceInput" spellcheck="false"></textarea>
+            </div>
+            <div class="practice-io-box">
+              <label for="practiceOutput">Output</label>
+              <textarea id="practiceOutput" spellcheck="false" readonly></textarea>
+            </div>
+          </div>
+
+          <div class="practice-actions">
+            <button class="btn-secondary" type="button" onclick="runPracticeCode()">Запустить код</button>
+            <button class="btn-primary" type="button" onclick="checkPracticeCode()">Проверить решение</button>
+          </div>
+
+          <div class="practice-status" id="practiceStatus">Выбери задачу и нажми «Запустить код».</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="news">
+  <div class="container">
+    <span class="section-tag lav" id="newsTag">📰 Новости</span>
+    <h2 class="section-title" id="newsTitle">Последние новости</h2>
+    <p class="section-sub" id="newsSubtitle" style="margin-bottom:32px;">Следи за успехами наших участниц и обновлениями программ</p>
+    <ul class="news-list">
+      <li class="news-item" onclick="openNewsModal(0)">
+        <span class="news-date">15 фев 2026</span>
+        <div class="news-content">
+          <h4>Девушка из Атырау выиграла международную олимпиаду по кодингу</h4>
+          <p>Айгерим Сейткали, участница Pink Hero Bootcamp, заняла 1-е место на EGOI 2025 и получила стипендию в MIT</p>
+        </div>
+        <span class="news-arrow">→</span>
+      </li>
+      <li class="news-item" onclick="openNewsModal(1)">
+        <span class="news-date">10 фев 2026</span>
+        <div class="news-content">
+          <h4>Pink Coded запускает Digital Bridge — платформу для девушек из регионов</h4>
+          <p>Новый раздел помогает девушкам из сельских районов найти ментора и возможности за рубежом</p>
+        </div>
+        <span class="news-arrow">→</span>
+      </li>
+      <li class="news-item" onclick="openNewsModal(2)">
+        <span class="news-date">5 фев 2026</span>
+        <div class="news-content">
+          <h4>Партнёрство с Astana Hub: 50 мест на стажировки для участниц</h4>
+          <p>Соглашение открывает доступ к реальным проектам казахстанских стартапов для девушек сообщества</p>
+        </div>
+        <span class="news-arrow">→</span>
+      </li>
+      <li class="news-item" onclick="openNewsModal(3)">
+        <span class="news-date">1 фев 2026</span>
+        <div class="news-content">
+          <h4>500 девушек из Узбекистана присоединились за первый месяц</h4>
+          <p>Pink Coded расширяется — открываем новые региональные хабы в Ташкенте и Самарканде</p>
+        </div>
+        <span class="news-arrow">→</span>
+      </li>
+    </ul>
+    <a href="#" class="see-all" onclick="openAllNewsModal();event.preventDefault()">Все новости →</a>
+  </div>
+</section>
+
+<section id="events">
+  <div class="container">
+    <span class="section-tag" id="eventsTag">📅 События</span>
+    <h2 class="section-title" id="eventsTitle">Предстоящие мероприятия</h2>
+    <p class="section-sub" id="eventsSubtitle">Хакатоны, воркшопы и вебинары — участвуй вживую или онлайн</p>
+    <div class="cards-grid cards-3">
+      <div class="event-card">
+        <div class="event-date">📅 1 марта 2026</div>
+        <h3>Pink Hackathon Almaty 2026</h3>
+        <p>48-часовой хакатон только для девушек. Призовой фонд 2 000 000 тг. Менторы от Google, Яндекс, Kaspi.</p>
+        <div class="event-meta">
+          <span>📍 Алматы, Astana Hub</span>
+          <span>🕐 09:00 — 09:00</span>
+          <span>👩 150 мест</span>
+        </div>
+        <button class="btn-primary" type="button" style="font-size:13px;padding:10px 20px;width:100%;" onclick="openEventModal('hackathon')">Зарегистрироваться</button>
+      </div>
+      <div class="event-card">
+        <div class="event-date">📅 10 марта 2026</div>
+        <h3>Вебинар: Python для начинающих</h3>
+        <p>Бесплатный онлайн-воркшоп по основам Python для тех, кто только начинает свой путь в кодинге.</p>
+        <div class="event-meta">
+          <span>🌐 Онлайн (Zoom)</span>
+          <span>🕐 18:00 — 20:00</span>
+          <span>👩 500 мест</span>
+        </div>
+        <button class="btn-primary" type="button" style="font-size:13px;padding:10px 20px;width:100%;" onclick="openEventModal('python')">Зарегистрироваться</button>
+      </div>
+      <div class="event-card">
+        <div class="event-date">📅 20 марта 2026</div>
+        <h3>Воркшоп: Поступление за рубеж</h3>
+        <p>Как подать документы в MIT, Stanford, ETH Zürich — советы от девушек, которые уже поступили.</p>
+        <div class="event-meta">
+          <span>🌐 Онлайн + Нур-Султан</span>
+          <span>🕐 15:00 — 18:00</span>
+          <span>👩 200 мест</span>
+        </div>
+        <button class="btn-primary" type="button" style="font-size:13px;padding:10px 20px;width:100%;" onclick="openEventModal('abroad')">Зарегистрироваться</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="container">
+    <span class="section-tag lav" id="communityTag">💬 Комьюнити</span>
+    <h2 class="section-title" id="communityTitle">Комьюнити и знания</h2>
+    <p class="section-sub" id="communitySubtitle">Читай посты, делись опытом, учись у других девушек в IT</p>
+    <div class="community-grid">
+      <div>
+        <h3 style="font-size:15px;font-weight:800;margin-bottom:16px;color:var(--text-mid);">Категории</h3>
+        <div class="community-cats">
+          <a href="#" class="cat-item active" onclick="filterPosts('all', event);event.preventDefault()"><span class="cat-name">🌐 Все посты</span><span class="cat-count">384</span></a>
+          <a href="#" class="cat-item" onclick="filterPosts('coding', event);event.preventDefault()"><span class="cat-name">💻 Кодинг</span><span class="cat-count">5 395</span></a>
+          <a href="#" class="cat-item" onclick="filterPosts('english', event);event.preventDefault()"><span class="cat-name">🇬🇧 Английский для олимпиад</span><span class="cat-count">4 751</span></a>
+          <a href="#" class="cat-item" onclick="filterPosts('projects', event);event.preventDefault()"><span class="cat-name">🚀 Проекты девушек</span><span class="cat-count">2 103</span></a>
+          <a href="#" class="cat-item" onclick="filterPosts('abroad', event);event.preventDefault()"><span class="cat-name">✈️ Поступление за рубеж</span><span class="cat-count">1 847</span></a>
+          <a href="#" class="cat-item" onclick="filterPosts('ai', event);event.preventDefault()"><span class="cat-name">🤖 AI и Machine Learning</span><span class="cat-count">987</span></a>
+          <a href="#" class="cat-item" onclick="filterPosts('math', event);event.preventDefault()"><span class="cat-name">📐 Математика и CS</span><span class="cat-count">763</span></a>
+        </div>
+      </div>
+      <div>
+        <div id="posts-container">
+          <div class="post-card" data-cat="coding" onclick="openPostModal(0)">
+            <div class="post-title">Как я выучила Python за 30 дней и получила стажировку в Яндексе</div>
+            <div class="post-meta">
+              <span class="post-author">👩 Аяулым К., Алматы</span>
+              <span class="post-date">12 фев 2026</span>
+            </div>
+            <p style="font-size:13px;color:var(--text-mid);">Делюсь своим опытом: с чего начала, какие ресурсы использовала и как прошла собеседование...</p>
+            <div class="post-stats">
+              <span class="post-stat">👁 2 341</span>
+              <span class="post-stat">💬 87</span>
+              <span class="post-stat">❤️ 312</span>
+              <span class="card-tag tag-pink" style="margin-left:auto;font-size:11px;">Кодинг</span>
+            </div>
+          </div>
+          <div class="post-card" data-cat="abroad" onclick="openPostModal(1)">
+            <div class="post-title">Поступила в MIT — вот полный гайд для девушек из Казахстана</div>
+            <div class="post-meta">
+              <span class="post-author">👩 Дана С., Шымкент</span>
+              <span class="post-date">8 фев 2026</span>
+            </div>
+            <p style="font-size:13px;color:var(--text-mid);">Документы, эссе, рекомендации — разбираю каждый шаг с реальными примерами...</p>
+            <div class="post-stats">
+              <span class="post-stat">👁 5 892</span>
+              <span class="post-stat">💬 203</span>
+              <span class="post-stat">❤️ 891</span>
+              <span class="card-tag tag-lav" style="margin-left:auto;font-size:11px;">За рубеж</span>
+            </div>
+          </div>
+          <div class="post-card" data-cat="ai" onclick="openPostModal(2)">
+            <div class="post-title">Топ-5 бесплатных ресурсов для изучения Machine Learning с нуля</div>
+            <div class="post-meta">
+              <span class="post-author">👩 Зарина М., Нур-Султан</span>
+              <span class="post-date">5 фев 2026</span>
+            </div>
+            <p style="font-size:13px;color:var(--text-mid);">Проверила сама и рекомендую только то, что реально помогло...</p>
+            <div class="post-stats">
+              <span class="post-stat">👁 1 203</span>
+              <span class="post-stat">💬 45</span>
+              <span class="post-stat">❤️ 178</span>
+              <span class="card-tag tag-gold" style="margin-left:auto;font-size:11px;">AI/ML</span>
+            </div>
+          </div>
+          <div class="post-card" data-cat="english" onclick="openPostModal(3)">
+            <div class="post-title">Как я подняла английский до IELTS 7.5 для поступления в STEM</div>
+            <div class="post-meta">
+              <span class="post-author">👩 Мадина Т., Караганда</span>
+              <span class="post-date">3 фев 2026</span>
+            </div>
+            <p style="font-size:13px;color:var(--text-mid);">Список ресурсов, привычек и шаблонов, которые помогли мне подготовиться без дорогих курсов...</p>
+            <div class="post-stats">
+              <span class="post-stat">👁 1 854</span>
+              <span class="post-stat">💬 61</span>
+              <span class="post-stat">❤️ 244</span>
+              <span class="card-tag tag-green" style="margin-left:auto;font-size:11px;">English</span>
+            </div>
+          </div>
+          <div class="post-card" data-cat="projects" onclick="openPostModal(4)">
+            <div class="post-title">Мы собрали MVP за 12 дней и получили первый грант на проект</div>
+            <div class="post-meta">
+              <span class="post-author">👩 Асель Н., Астана</span>
+              <span class="post-date">29 янв 2026</span>
+            </div>
+            <p style="font-size:13px;color:var(--text-mid);">Рассказываю, как распределили роли в команде, собрали лендинг и подготовили pitch deck...</p>
+            <div class="post-stats">
+              <span class="post-stat">👁 2 092</span>
+              <span class="post-stat">💬 73</span>
+              <span class="post-stat">❤️ 301</span>
+              <span class="card-tag tag-pink" style="margin-left:auto;font-size:11px;">Projects</span>
+            </div>
+          </div>
+          <div class="post-card" data-cat="math" onclick="openPostModal(5)">
+            <div class="post-title">Как тренироваться по математике и алгоритмам перед олимпиадой</div>
+            <div class="post-meta">
+              <span class="post-author">👩 Аружан Б., Тараз</span>
+              <span class="post-date">25 янв 2026</span>
+            </div>
+            <p style="font-size:13px;color:var(--text-mid);">Мой недельный план: теория чисел, комбинаторика, разбор задач и командные тренировки...</p>
+            <div class="post-stats">
+              <span class="post-stat">👁 1 477</span>
+              <span class="post-stat">💬 38</span>
+              <span class="post-stat">❤️ 198</span>
+              <span class="card-tag tag-gold" style="margin-left:auto;font-size:11px;">Math/CS</span>
+            </div>
+          </div>
+          <div class="post-empty" id="postsEmpty">В этой категории пока нет постов.</div>
+        </div>
+        <button class="btn-secondary" type="button" style="width:100%;margin-top:16px;" onclick="openModal('modalCommunity')">Смотреть все посты →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="liveCampus">
+  <div class="container">
+    <span class="section-tag gold" id="liveTag">🎥 Live Campus</span>
+    <h2 class="section-title" id="liveTitle">Живые комнаты для уроков, созвонов и менторства</h2>
+    <p class="section-sub" id="liveSubtitle">Внутри платформы можно проводить видео-встречи, мини-уроки, code review и групповые созвоны без перехода в Zoom</p>
+
+    <div class="live-campus-grid">
+      <div class="live-main-card">
+        <div class="live-card-head">
+          <span class="card-tag tag-pink">● Live now</span>
+          <h3>Frontend Mentoring Room</h3>
+        </div>
+        <p>Комната для еженедельных разборов проектов, демонстрации экрана, голосового общения и совместного просмотра кода.</p>
+        <div class="live-features">
+          <span>🎙 Голос и видео</span>
+          <span>🖥 Демонстрация экрана</span>
+          <span>💬 Чат во время урока</span>
+          <span>📝 Заметки ментора</span>
+        </div>
+        <div class="live-actions">
+          <button class="btn-primary" type="button" onclick="openModal('modalLiveClass')">Войти в комнату</button>
+          <button class="btn-secondary" type="button" onclick="showToast('📅','Урок сохранён','Мы напомним тебе перед началом занятия')">Напомнить мне</button>
+        </div>
+      </div>
+
+      <div class="live-side-stack">
+        <div class="live-side-card">
+          <span class="card-tag tag-lav">Сегодня</span>
+          <h3>AI Study Circle</h3>
+          <p>19:00 — менторский урок по Python и разбор домашнего задания для начинающих.</p>
+          <button class="mini-link" type="button" onclick="openModal('modalLiveClass')">Открыть класс →</button>
+        </div>
+        <div class="live-side-card">
+          <span class="card-tag tag-gold">Завтра</span>
+          <h3>Research Girls Lab</h3>
+          <p>17:30 — малая группа по олимпиадной математике и обсуждению задач с ментором.</p>
+          <button class="mini-link" type="button" onclick="openModal('modalLiveClass')">Открыть класс →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="live-tools">
+      <div class="live-tool-card">
+        <div class="card-icon">👩‍🏫</div>
+        <h3>Кабинет ментора</h3>
+        <p>Ментор создаёт комнату, выдаёт доступ группе и запускает урок по расписанию.</p>
+      </div>
+      <div class="live-tool-card">
+        <div class="card-icon">🧠</div>
+        <h3>Групповые спринты</h3>
+        <p>Участницы собираются в тематические комнаты по вебу, AI, олимпиадам и английскому.</p>
+      </div>
+      <div class="live-tool-card">
+        <div class="card-icon">🔒</div>
+        <h3>Закрытые комнаты</h3>
+        <p>Приватные созвоны 1:1 для менторства, обратной связи и карьерных консультаций.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="opportunities">
+  <div class="container">
+    <span class="section-tag" id="opportunitiesTag">💸 Возможности и заработок</span>
+    <h2 class="section-title" id="opportunitiesTitle">Компании могут оставлять задания, гранты и оплачиваемые треки</h2>
+    <p class="section-sub" id="opportunitiesSubtitle">Партнёры, большие компании и менторы публикуют реальные задачи, мини-проекты и гранты, а участницы получают оплату, опыт и шанс на долгосрочное сотрудничество</p>
+
+    <div class="cards-grid cards-3">
+      <div class="opportunity-card">
+        <span class="card-tag tag-pink">💼 Paid challenge</span>
+        <h3>Kaspi Product Challenge</h3>
+        <p>Разработать интерфейс мини-сервиса для молодёжной аудитории. Лучшие 3 команды получают денежные призы и интервью.</p>
+        <div class="opportunity-meta">
+          <span>💰 300 000 тг</span>
+          <span>👥 2–4 участницы</span>
+          <span>⏳ 10 дней</span>
+        </div>
+        <button class="btn-primary" type="button" style="width:100%;" onclick="openModal('modalOpportunity')">Оставить / смотреть заявку</button>
+      </div>
+
+      <div class="opportunity-card">
+        <span class="card-tag tag-gold">🏆 Grant</span>
+        <h3>Girls in AI Micro-Grant</h3>
+        <p>Компании и фонды финансируют мини-проекты участниц в AI/ML. Можно получить бюджет на реализацию идеи и ментора.</p>
+        <div class="opportunity-meta">
+          <span>💰 до $5 000</span>
+          <span>🎯 AI/ML проект</span>
+          <span>📅 Ежемесячно</span>
+        </div>
+        <button class="btn-secondary" type="button" style="width:100%;" onclick="openModal('modalOpportunity')">Подать идею</button>
+      </div>
+
+      <div class="opportunity-card">
+        <span class="card-tag tag-lav">🧩 Task board</span>
+        <h3>Startup Task Sprint</h3>
+        <p>Стартапы публикуют точечные оплачиваемые задачи: лендинги, ресёрч, дизайн, Python-скрипты, тестирование и аналитика.</p>
+        <div class="opportunity-meta">
+          <span>💰 от $50</span>
+          <span>🛠 Короткие задачи</span>
+          <span>🚀 Быстрый старт</span>
+        </div>
+        <button class="btn-secondary" type="button" style="width:100%;" onclick="openModal('modalOpportunity')">Смотреть задания</button>
+      </div>
+    </div>
+
+    <div class="opportunity-strip">
+      <div>
+        <h3 id="opportunitiesStripTitle">Для компаний и сильных менторов</h3>
+        <p id="opportunitiesStripText">Вы можете публиковать задачи, оплачиваемые челленджи, учебные кейсы и гранты, чтобы находить талантливых девушек и собирать команды вокруг реальных продуктов.</p>
+      </div>
+      <button class="btn-primary" type="button" onclick="openModal('modalOpportunityPartner')">Оставить задание</button>
+    </div>
+  </div>
+</section>
+
+<section id="hackathons">
+  <div class="container">
+    <span class="section-tag gold" id="hackathonsTag">🏁 Хакатоны</span>
+    <h2 class="section-title" id="hackathonsTitle">Международные, республиканские и региональные хакатоны</h2>
+    <p class="section-sub" id="hackathonsSubtitle">Выбирай формат по масштабу, теме и локации: от локальных спринтов до международных соревнований с призами и стажировками.</p>
+
+    <div class="tabs hackathon-tabs">
+      <button class="tab-btn active" id="hackathonTabAll" type="button" onclick="filterHackathons('all', event)">Все</button>
+      <button class="tab-btn" id="hackathonTabIntl" type="button" onclick="filterHackathons('international', event)">🌍 Международные</button>
+      <button class="tab-btn" id="hackathonTabNational" type="button" onclick="filterHackathons('national', event)">🇰🇿 Республиканские</button>
+      <button class="tab-btn" id="hackathonTabRegional" type="button" onclick="filterHackathons('regional', event)">📍 Региональные</button>
+    </div>
+
+    <div class="cards-grid cards-3" id="hackathonGrid">
+      <div class="hackathon-card" data-scope="international">
+        <span class="card-tag tag-pink">🌍 Международный</span>
+        <h3>Global Girls Hack Week</h3>
+        <p>Онлайн-хакатон для школьниц и студенток из разных стран: AI, edtech, climate tech и social impact.</p>
+        <div class="opportunity-meta">
+          <span>💰 $10 000 pool</span>
+          <span>🌐 Online</span>
+          <span>🕒 48 часов</span>
+        </div>
+        <button class="btn-primary" type="button" style="width:100%;" onclick="showToast('🏁','Хакатон сохранён','Мы можем позже добавить форму регистрации и дедлайны')">Смотреть детали</button>
+      </div>
+
+      <div class="hackathon-card" data-scope="national">
+        <span class="card-tag tag-gold">🇰🇿 Республиканский</span>
+        <h3>Kazakhstan Tech Sprint</h3>
+        <p>Большой хакатон по продуктовым задачам, fintech и smart city с компаниями-партнёрами и треком для начинающих.</p>
+        <div class="opportunity-meta">
+          <span>📍 Астана</span>
+          <span>👩 Команды 2–5</span>
+          <span>🚀 Стажировки</span>
+        </div>
+        <button class="btn-secondary" type="button" style="width:100%;" onclick="showToast('🇰🇿','Трек открыт','Можно добавить отдельную страницу хакатона')">Открыть трек</button>
+      </div>
+
+      <div class="hackathon-card" data-scope="regional">
+        <span class="card-tag tag-lav">📍 Региональный</span>
+        <h3>Central Asia Build Day</h3>
+        <p>Региональный формат для Казахстана, Узбекистана и Кыргызстана с менторами, локальными задачами и питчем для жюри.</p>
+        <div class="opportunity-meta">
+          <span>🗺️ CA + CIS</span>
+          <span>🎯 Social impact</span>
+          <span>💡 MVP за день</span>
+        </div>
+        <button class="btn-secondary" type="button" style="width:100%;" onclick="showToast('📍','Региональный хакатон','Можно вывести список городов и хабов')">Найти регион</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bridge">
+  <div class="container">
+    <span class="section-tag" id="bridgeTag">🌉 Digital Bridge</span>
+    <h2 class="section-title" id="bridgeTitle">Твой путь в Digital Bridge</h2>
+    <p class="section-sub" id="bridgeSubtitle">4 шага от новичка до участницы международных программ</p>
+    <div class="bridge-steps">
+      <div class="bridge-step"><div class="step-num done">1</div><div class="step-label"><h4>Регистрация</h4><p>Создай профиль</p></div></div>
+      <div class="bridge-step"><div class="step-num done">2</div><div class="step-label"><h4>Выбор программы</h4><p>Найди свой путь</p></div></div>
+      <div class="bridge-step"><div class="step-num active">3</div><div class="step-label"><h4>Ментор и проект</h4><p>Учись с поддержкой</p></div></div>
+      <div class="bridge-step"><div class="step-num todo">4</div><div class="step-label"><h4>Возможности</h4><p>Гранты, стажировки, вуз</p></div></div>
+    </div>
+    <div style="text-align:center;margin-top:56px;">
+      <button class="btn-primary" type="button" style="font-size:16px;padding:18px 48px;" onclick="openModal('modalJoin')">Начать свой Bridge 🌉</button>
+    </div>
+  </div>
+</section>
+
+<div class="overlay" id="modalJoin">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">✨ Присоединиться к Pink Coded</div>
+      <button class="modal-close" type="button" onclick="closeModal('modalJoin')">×</button>
+    </div>
+    <div id="joinFormWrap">
+      <div class="form-group"><label>Имя *</label><input type="text" id="joinName" placeholder="Твоё имя"><div class="form-error" id="err-joinName">Введи имя</div></div>
+      <div class="form-group"><label>Возраст *</label><select id="joinAge"><option value="">Выбери возраст</option><option value="13-15">13–15 лет</option><option value="16-18">16–18 лет</option><option value="19-22">19–22 года</option><option value="23+">23+ года</option></select><div class="form-error" id="err-joinAge">Выбери возраст</div></div>
+      <div class="form-group"><label>Email *</label><input type="email" id="joinEmail" placeholder="твой@email.com"><div class="form-error" id="err-joinEmail">Введи корректный email</div></div>
+      <div class="form-group"><label id="joinCountryLabel">Страна *</label><select id="joinCountry" onchange="updateRegionsByCountry()"><option value="">Выбери страну</option><option value="kazakhstan">Казахстан</option><option value="uzbekistan">Узбекистан</option><option value="kyrgyzstan">Кыргызстан</option><option value="other_cis">Другая страна СНГ</option></select></div>
+      <div class="form-group"><label id="joinRegionLabel">Регион / Город</label><select id="joinRegion"><option value="">Сначала выбери страну</option></select></div>
+      <div class="form-group"><label>Моя роль</label><select id="joinRole"><option value="">Выбери роль</option><option value="idea">💡 Девушка с идеей проекта</option><option value="coder">💻 IT-девушка / уже кодирую</option><option value="researcher">🔬 Исследовательница CS/Math</option><option value="mentor">🤝 Ментор / партнёр</option></select></div>
+      <div class="form-group"><label>Telegram (необязательно)</label><input type="text" id="joinTg" placeholder="@username"></div>
+      <button class="btn-primary" type="button" style="width:100%;font-size:15px;padding:16px;" onclick="submitJoinForm()">Присоединиться к сообществу 🚀</button>
+      <p style="font-size:12px;color:var(--text-light);text-align:center;margin-top:12px;">Присоединяясь, ты принимаешь правила безопасного сообщества Pink Coded 💕</p>
+    </div>
+    <div class="form-success" id="joinSuccess">
+      <div class="emoji">🎉</div>
+      <h4>Добро пожаловать в Pink Coded!</h4>
+      <p>Мы отправили письмо с деталями на твою почту. Ты не одна — здесь тысячи сестёр 💕</p>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="modalRole"><div class="modal"><div class="modal-header"><div class="modal-title" id="roleModalTitle">Роль</div><button class="modal-close" type="button" onclick="closeModal('modalRole')">×</button></div><div id="roleModalContent"></div></div></div>
+<div class="overlay" id="modalProgram"><div class="modal"><div class="modal-header"><div class="modal-title" id="progModalTitle">Программа</div><button class="modal-close" type="button" onclick="closeModal('modalProgram')">×</button></div><div id="progModalContent"></div><div style="margin-top:24px;"><div id="progApplyWrap"><h3 style="font-size:16px;font-weight:800;margin-bottom:16px;">Подать заявку</h3><div class="form-group"><label>Имя *</label><input type="text" id="progName" placeholder="Твоё имя"></div><div class="form-group"><label>Email *</label><input type="email" id="progEmail" placeholder="твой@email.com"></div><div class="form-group"><label>Мотивационное письмо (1–3 предложения)</label><textarea id="progMotivation" rows="3" placeholder="Почему ты хочешь участвовать?"></textarea></div><button class="btn-primary" type="button" style="width:100%;" onclick="submitProgram()">Отправить заявку 🚀</button></div><div class="form-success" id="progSuccess"><div class="emoji">✨</div><h4>Заявка отправлена!</h4><p>Мы свяжемся с тобой в течение 3 дней на email 💕</p></div></div></div></div>
+<div class="overlay" id="modalEvent"><div class="modal"><div class="modal-header"><div class="modal-title" id="eventModalTitle">Регистрация</div><button class="modal-close" type="button" onclick="closeModal('modalEvent')">×</button></div><div id="eventModalContent"></div><div style="margin-top:20px;"><div id="eventRegWrap"><div class="form-group"><label>Имя *</label><input type="text" id="evName" placeholder="Твоё имя"></div><div class="form-group"><label>Email *</label><input type="email" id="evEmail" placeholder="твой@email.com"></div><div class="form-group"><label>Telegram</label><input type="text" id="evTg" placeholder="@username"></div><button class="btn-primary" type="button" style="width:100%;" onclick="submitEvent()">Зарегистрироваться 🎉</button></div><div class="form-success" id="evSuccess"><div class="emoji">🎉</div><h4>Ты зарегистрирована!</h4><p>Напоминание придёт за день до события 📅</p></div></div></div></div>
+<div class="overlay" id="modalNews"><div class="modal" style="max-width:620px;"><div class="modal-header"><div class="modal-title" id="newsModalTitle">Новость</div><button class="modal-close" type="button" onclick="closeModal('modalNews')">×</button></div><div id="newsModalContent"></div></div></div>
+<div class="overlay" id="modalCommunity"><div class="modal" style="max-width:620px;"><div class="modal-header"><div class="modal-title">💬 Комьюнити Pink Coded</div><button class="modal-close" type="button" onclick="closeModal('modalCommunity')">×</button></div><p style="color:var(--text-mid);margin-bottom:20px;">Присоединяйся к обсуждениям в наших каналах:</p><div style="display:flex;flex-direction:column;gap:12px;"><a href="https://t.me/pinkcodeeed" target="_blank" rel="noreferrer" style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg);border-radius:14px;text-decoration:none;border:1.5px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='var(--pink)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:28px;">✈️</span><div><div style="font-weight:800;color:var(--text);">Telegram сообщество</div><div style="font-size:13px;color:var(--text-light);">Основной чат · 6 000+ участниц</div></div></a><a href="https://www.instagram.com/pink_coded/" target="_blank" rel="noreferrer" style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg);border-radius:14px;text-decoration:none;border:1.5px solid var(--border);transition:all 0.2s;" onmouseover="this.style.borderColor='var(--pink)'" onmouseout="this.style.borderColor='var(--border)'"><span style="font-size:28px;">📸</span><div><div style="font-weight:800;color:var(--text);">Instagram</div><div style="font-size:13px;color:var(--text-light);">Истории успеха и новости · 12K</div></div></a></div></div></div>
+<div class="overlay" id="modalLiveClass">
+  <div class="modal" style="max-width:680px;">
+    <div class="modal-header">
+      <div class="modal-title">🎥 Live Campus Class</div>
+      <button class="modal-close" type="button" onclick="closeModal('modalLiveClass')">×</button>
+    </div>
+    <div class="live-modal-preview">
+      <div class="live-video-stage">
+        <div class="live-video-badge">В эфире</div>
+        <div class="live-video-center">Mentor Cam</div>
+        <div class="live-video-mini">You</div>
+      </div>
+      <div class="live-modal-panel">
+        <h3>Frontend Mentoring Room</h3>
+        <p>Следующий шаг для реальной версии: WebRTC-комнаты, расписание, список участниц и роли ведущей.</p>
+        <div class="live-modal-points">
+          <span>✔ Видео-урок внутри платформы</span>
+          <span>✔ Групповой чат и hand raise</span>
+          <span>✔ Экран ментора и материалы урока</span>
+        </div>
+        <button class="btn-primary" type="button" style="width:100%;" onclick="showToast('🎥','Комната готова','Можно подключать WebRTC или Daily/LiveKit')">Запустить demo-класс</button>
+        <a class="btn-secondary" href="https://zoom.us/" target="_blank" rel="noopener noreferrer" style="width:100%;justify-content:center;margin-top:12px;">Открыть Zoom после собрания</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="modalOpportunity">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">💸 Оплачиваемые возможности</div>
+      <button class="modal-close" type="button" onclick="closeModal('modalOpportunity')">×</button>
+    </div>
+    <p style="color:var(--text-mid);margin-bottom:18px;">Здесь участницы могут откликаться на задания, проектные спринты и грантовые программы от компаний и менторов.</p>
+    <div class="form-group"><label>Имя *</label><input type="text" placeholder="Твоё имя"></div>
+    <div class="form-group"><label>Email *</label><input type="email" placeholder="твой@email.com"></div>
+    <div class="form-group"><label>Что тебя интересует?</label><select><option>Оплачиваемое задание</option><option>Грант на проект</option><option>Командный челлендж</option><option>Стажировка / сотрудничество</option></select></div>
+    <button class="btn-primary" type="button" style="width:100%;" onclick="showToast('💸','Отклик отправлен','Мы покажем доступные задания и свяжем с партнёрами')">Отправить отклик</button>
+  </div>
+</div>
+<div class="overlay" id="modalOpportunityPartner">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🏢 Оставить задание от компании</div>
+      <button class="modal-close" type="button" onclick="closeModal('modalOpportunityPartner')">×</button>
+    </div>
+    <p style="color:var(--text-mid);margin-bottom:18px;">Партнёр может опубликовать платное задание, грант, кейс или конкурс для участниц сообщества.</p>
+    <div class="form-group"><label>Компания / ментор *</label><input type="text" placeholder="Название компании"></div>
+    <div class="form-group"><label>Контактный email *</label><input type="email" placeholder="hello@company.com"></div>
+    <div class="form-group"><label>Тип возможности</label><select><option>Оплачиваемое задание</option><option>Грант</option><option>Хакатон / конкурс</option><option>Стажировка</option></select></div>
+    <div class="form-group"><label>Краткое описание</label><textarea rows="4" placeholder="Что нужно сделать, какой бюджет и срок?"></textarea></div>
+    <button class="btn-primary" type="button" style="width:100%;" onclick="showToast('🚀','Заявка принята','Команда Pink Coded свяжется с вами для публикации задания')">Отправить заявку</button>
+  </div>
+</div>
+<div class="overlay" id="modalPost"><div class="modal" style="max-width:620px;"><div class="modal-header"><div class="modal-title" id="postModalTitle">Пост</div><button class="modal-close" type="button" onclick="closeModal('modalPost')">×</button></div><div id="postModalContent"></div></div></div>
+
+<div class="toast" id="toast"><div class="toast-icon" id="toastIcon">✨</div><div class="toast-text"><h4 id="toastTitle">Успешно!</h4><p id="toastMsg">Готово</p></div></div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo" style="font-family:'Unbounded',sans-serif;font-size:22px;">Pink <span style="font-weight:300;">Coded</span></a>
+      <p>Сообщество для девушек 13–22 лет из Казахстана и СНГ, которые превращают идеи в код и проекты. Вместе мы строим IT-будущее.</p>
+      <div class="footer-socials">
+        <a href="https://t.me/pinkcoded" class="social-btn" target="_blank" rel="noreferrer">✈️</a>
+        <a href="https://instagram.com/pinkcoded" class="social-btn" target="_blank" rel="noreferrer">📸</a>
+        <a href="https://youtube.com" class="social-btn" target="_blank" rel="noreferrer">▶</a>
+        <a href="https://linkedin.com" class="social-btn" target="_blank" rel="noreferrer">💼</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 id="footerProgramsTitle">Программы</h4>
+      <a href="#" onclick="openProgramModal('bootcamp');return false;">Pink Hero Bootcamp</a>
+      <a href="#" onclick="openProgramModal('ai');return false;">Основы Кодинга и AI</a>
+      <a href="#" onclick="openProgramModal('marathon');return false;">Pink Coders Marathon</a>
+      <a href="#" onclick="openProgramModal('olympiad');return false;">Олимпиадный трек</a>
+    </div>
+    <div class="footer-col">
+      <h4 id="footerCommunityTitle">Сообщество</h4>
+      <a href="#" onclick="scrollToSection('#community');return false;">Комьюнити</a>
+      <a href="#" onclick="scrollToSection('#events');return false;">События</a>
+      <a href="#" onclick="scrollToSection('#bridge');return false;">Digital Bridge</a>
+      <a href="#" onclick="openModal('modalJoin');return false;">Стать участницей</a>
+    </div>
+    <div class="footer-col">
+      <h4 id="footerContactsTitle">Контакты</h4>
+      <a href="mailto:hello@pinkcoded.org">✉️ hello@pinkcoded.org</a>
+      <a href="https://t.me/pinkcoded" target="_blank" rel="noreferrer">✈️ @pinkcoded</a>
+      <a href="#">📍 Алматы, Казахстан</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Pink Coded. Все права защищены. Создано девушками для девушек 💕</p>
+    <button class="btn-join" type="button" onclick="openModal('modalJoin')">Присоединиться ✨</button>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
